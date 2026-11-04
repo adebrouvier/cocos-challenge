@@ -1,0 +1,1 @@
+SPRING_PROFILES_ACTIVE=dev mvn install -Duser.timezone=UTC

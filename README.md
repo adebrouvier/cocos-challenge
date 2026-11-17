@@ -14,6 +14,27 @@ docker compose up -d                                   # Postgres en localhost:5
 ./mvnw test                                            # requiere Docker
 ```
 
+### Contra otra base de datos
+
+Con el perfil `prod`, la conexión se configura con variables de entorno:
+
+```bash
+./mvnw -q package -DskipTests
+SPRING_PROFILES_ACTIVE=prod \
+DATABASE_URL=jdbc:postgresql://host:5432/cocos \
+DATABASE_USERNAME=usuario \
+DATABASE_PASSWORD=contraseña \
+java -jar target/cocos-0.0.1-SNAPSHOT.jar
+```
+
+`DATABASE_URL` tiene que ser una URL **JDBC** (`jdbc:postgresql://host:puerto/base`), sin el usuario ni la
+contraseña adentro: van en sus propias variables. Si el proveedor da una URL del tipo
+`postgresql://usuario:contraseña@host:5432/base`, hay que separarla. Las bases en la nube suelen requerir
+además `?sslmode=require` al final.
+
+Si la base ya tiene las tablas del challenge, Flyway registra V1 como aplicada sin ejecutarla y solo aplica
+V2 y V3.
+
 ## Decisiones de diseño
 
 - **Una orden rechazada no es un error HTTP**: se devuelve con 201. El motivo solo viaja en la respuesta,

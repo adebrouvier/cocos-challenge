@@ -1,0 +1,61 @@
+# Requests for the Cocos backend challenge API.
+# Run them with the IntelliJ HTTP Client or the VS Code REST Client extension.
+
+@baseUrl = http://localhost:8080
+
+### Get Portfolio
+GET {{baseUrl}}/portfolio/10002
+
+### Query Instruments
+GET {{baseUrl}}/instruments?q=Mac
+
+
+### Submit CASH IN
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+    "accountNumber": "10002",
+    "instrumentId": 66,
+    "side": "CASH_IN",
+    "type": "MARKET",
+    "amount": 100000
+}
+
+### Submit CASH OUT
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+    "accountNumber": "10002",
+    "instrumentId": 66,
+    "side": "CASH_OUT",
+    "type": "MARKET",
+    "amount": 10000
+}
+
+
+### Submit Market BUY order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+    "accountNumber": "10002",
+    "instrumentId": 47,
+    "side": "BUY",
+    "type": "MARKET",
+    "size": 10
+}
+
+### Submit Market LIMIT order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+    "accountNumber": "10002",
+    "instrumentId": 48,
+    "side": "BUY",
+    "type": "LIMIT",
+    "size": 10,
+    "price": 900
+}
